@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
             "If you found a magic lantern and a genie gave you three wishes, what would you wish?"};
 
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,31 +40,58 @@ public class MainActivity extends AppCompatActivity {
 
     public int number;
 
-    public void roll_the_dice() {
+    public void rollDice(){
 
-        TextView dice = this.findViewById(R.id.buttonClick);
 
-        Random r = new Random();
-        number = r.nextInt(7);
-        dice.setText(Integer.toString(number));
+        switch (number){
+            case 1:
+                random.setText(question[0]);
+                break;
+            case 2:
+                random.setText(question[1]);
+                break;
+            case 3:
+                random.setText(question[2]);
+                break;
+            case 4:
+                random.setText(question[3]);
+                break;
+            case 5:
+                random.setText(question[4]);
+                break;
+            case 6:
+                random.setText(question[5]);
+                break;
+
+        }
+
+
     }
-
-
-    @SuppressLint("WrongConstant")
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
 
     public void buttonClick(View view) {
 
-        roll_the_dice();
+        try {
 
-        int n = Integer.parseInt(numberInput.getText().toString());
+            TextView dice = this.findViewById(R.id.buttonClick);
 
-        if (n < 1 || n > 6) {
-            Toast.makeText(this, "Invalid input number", Toast.LENGTH_SHORT).show();
-        } else if (n == number) {
-            Toast.makeText(this, "Congratulations, you guessed the number", Toast.LENGTH_SHORT).show();
-            counter = counter + 1;
-            result.setText(Integer.toString(counter));
+            Random r = new Random();
+            number = r.nextInt(7);
+            dice.setText(Integer.toString(number));
+
+            int n = Integer.parseInt(numberInput.getText().toString());
+
+            if (n < 1 || n > 6) {
+                Toast.makeText(this, "Invalid input number", Toast.LENGTH_SHORT).show();
+            } else if (n == number) {
+                Toast.makeText(this, "Congratulations, you guessed the number", Toast.LENGTH_SHORT).show();
+                counter = counter + 1;
+                result.setText(Integer.toString(counter));
+            }
+
+            rollDice();
+        }
+        catch (Exception e){
+            Toast.makeText(this,"Please enter number from 1 to 6 ",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -76,9 +102,9 @@ public class MainActivity extends AppCompatActivity {
         random.setText(question[RN.nextInt(question.length)]);
     }
 
-    public void buttonClick2(View view) {
+    /*public void buttonClick2(View view) {
         im_feeling_luckey();
-    }
+    }*/
 
     public void next(View view){
         openActivity2();
