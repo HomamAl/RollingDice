@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,12 +21,15 @@ public class MainActivity extends AppCompatActivity {
     TextView random;
     int counter = 0;
 
-    String[] question = {"If you could go anywhere in the world, where would you go?",
-            "If you were stranded on a desert island, what three things would you want to take with you?",
-            "If you could eat only one food for the rest of your life, what would that be?",
-            "If you won a million dollars, what is the first thing you would buy?",
-            "If you could spaned the day with one fictional character, who would it be?",
-            "If you found a magic lantern and a genie gave you three wishes, what would you wish?"};
+    ArrayList <String> question  = new ArrayList<>();
+    {
+            question.add("If you could go anywhere in the world, where would you go?");
+            question.add("If you were stranded on a desert island, what three things would you want to take with you?");
+            question.add("If you could eat only one food for the rest of your life, what would that be?");
+            question.add("If you won a million dollars, what is the first thing you would buy?");
+            question.add("If you could spaned the day with one fictional character, who would it be?");
+            question.add("If you found a magic lantern and a genie gave you three wishes, what would you wish?");
+    }
 
 
     @Override
@@ -40,33 +44,19 @@ public class MainActivity extends AppCompatActivity {
 
     public int number;
 
+
     public void rollDice(){
 
+        Random rand = new Random();
+        int numberOfElements = 1;
 
-        switch (number){
-            case 1:
-                random.setText(question[0]);
-                break;
-            case 2:
-                random.setText(question[1]);
-                break;
-            case 3:
-                random.setText(question[2]);
-                break;
-            case 4:
-                random.setText(question[3]);
-                break;
-            case 5:
-                random.setText(question[4]);
-                break;
-            case 6:
-                random.setText(question[5]);
-                break;
-
+        for(int i = 0; i < numberOfElements;i++){
+            int randomIndex = rand.nextInt(question.size());
+            String randomElement = question.get(randomIndex);
+            random.setText(randomElement);
         }
-
-
     }
+
 
     public void buttonClick(View view) {
 
@@ -95,16 +85,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    public void im_feeling_luckey() {
-
-        Random RN = new Random();
-        random.setText(question[RN.nextInt(question.length)]);
-    }
-
-    /*public void buttonClick2(View view) {
-        im_feeling_luckey();
-    }*/
 
     public void next(View view){
         openActivity2();
